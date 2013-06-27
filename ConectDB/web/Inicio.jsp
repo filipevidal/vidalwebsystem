@@ -11,6 +11,7 @@
         Long session_data_hora_login = (Long) session.getAttribute("data_hora_login");
         Boolean session_login_ativo = (Boolean) session.getAttribute("login_ativo");
         
+        
         if (session_usuario_logado != null && session_data_hora_login != null && session_login_ativo == true)
             esta_logado = true;
         
@@ -24,23 +25,7 @@
             opcao_menu = request.getParameter("Operacao");
         }
         
-        // Somente se o usuário estiver logado é que as opções de menu são
-        // verificadas
-        if (esta_logado && solicitou_menu && opcao_menu != null) {
-
-            if (opcao_menu.equals("VisualizarContatos"))
-                response.sendRedirect("Visualizar.jsp");
-            
-            else if (opcao_menu.equals("IncluirContato"))
-                response.sendRedirect("Incluir.jsp");
-
-            else if (opcao_menu.equals("EditarContato"))
-                response.sendRedirect("Editar.jsp");
-
-            else if (opcao_menu.equals("ExcluirContato"))
-                response.sendRedirect("Excluir.jsp");
-            
-        }
+        
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio</title>
@@ -49,7 +34,7 @@
         </style>
     </head>
     <body>
-        <br><br><br><br><br>
+        <br><br>
         <center>
             <br><br>
         <%
@@ -61,16 +46,61 @@
         <form name="Inicio" action="Inicio.jsp" method="POST">
             <h1>Bem vindo à sua Agenda Digital</h1>
             <p>Você está logado como <b><%=session_usuario_logado%></b> (<a href="Logout.jsp">SAIR</a>)</p>
-            <p>Selecione o que deseja fazer:</p>
+            <h2>Lista de Contatos</h2>
             <br>
-            <select name="Operacao">
-               <option value="VisualizarContatos">Visualizar Contatos</option>
-               <option value="IncluirContato">Incluir Contato</option>
-               <option value="EditarContato">Editar Contato</option>
-               <option value="ExcluirContato">Excluir Contato</option>
-            </select>
+            <table border="1" width="800" cellspacing="10" cellpadding="2">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><a href="Editar.jsp">Editar</a></td>
+                        <td><a href="Logout.jsp">Excluir</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><a href="Editar.jsp">Editar</a></td>
+                        <td><a href="Logout.jsp">Excluir</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><a href="Editar.jsp">Editar</a></td>
+                        <td><a href="Excluir.jsp">Excluir</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><a href="Editar.jsp">Editar</a></td>
+                        <td><a href="Logout.jsp">Excluir</a></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <center><input type="submit" value="Incluir Novo Contato" name="Incluir" /></center>
             <br>
-            <input type="submit" value="Executar" name="Executar" />
+            
         </form>
         <%
         // Se o usuário não estiver logado, será apresentada a mensagem

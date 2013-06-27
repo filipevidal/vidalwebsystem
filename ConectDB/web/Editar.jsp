@@ -18,7 +18,7 @@ if (!esta_logado)
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Incluir Contato</title>
+        <title>Editar Contato</title>
         <style type="text/css">
             body {background-image: url("fundo.png"); }
         </style>
@@ -26,8 +26,8 @@ if (!esta_logado)
     <body>
         <a href="Inicio.jsp">Voltar ao Início</a>
         <hr>
-        <form name="Incluir_Contato" action="Incluir.jsp" method="POST">
-            <h1>Por Favor, informe os dados do contato que deseja incluir</h1>
+        <form name="Editar_Contato" action="Editar.jsp" method="POST">
+            <h1>Por Favor, informe os dados que deseja alterar no contato </h1>
             <br><br>
             Nome do Contato: 
             <br>
@@ -45,7 +45,8 @@ if (!esta_logado)
             <br>
             <input type="text" name="E-mail" value="" size="50" />
             <br>
-            <input type="submit" value="Incluir Contato" name="Incluir " />
+            <input type="submit" value="Editar Contato" name="Excluir " />
         </form>
     </body>
 </html>
+

@@ -24,7 +24,7 @@
             try {
                 
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/LingProgIII", "administrador", "admin");
+                Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/Trabalho", "administrador", "administrador");
                 
                 Statement stm = conn.createStatement();
                 
