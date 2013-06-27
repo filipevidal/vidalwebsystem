@@ -32,6 +32,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <style type="text/css">
+            body {background-image: url("fundo_login.png"); } 
             .mensagemerro {
                 border: solid 1px darkred;
                 padding: 5px;
