@@ -1,6 +1,3 @@
-<form name="Inicio" action="Inicio" method="POST">
-</form>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,15 +38,14 @@
         <p>Você está logado como <b><%=session_usuario_logado%></b> (<a href="Logout.jsp">SAIR</a>)</p>
         <p>Selecione o que deseja fazer:</p>
         <br>
-        <select name="Operação">
-           <option>Visualizar Agenda</option>
+        <select name="Operacao">
+           <option>Visualizar Contatos</option>
            <option>Incluir Contato</option>
            <option>Editar Contato</option>
            <option>Excluir Contato</option>
         </select>
         <br>
         <input type="submit" value="Ir" name="Executar" />
-        <input type="reset" value="Limpar" name="Limpar" />
         <%
         // Se o usuário não estiver logado, será apresentada a mensagem
         // abaixo e um link para ele ir a página de login

@@ -44,7 +44,7 @@
         </style>
     </head>
     <body>
-        <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
         <center>
         <form name="Login" action="Login.jsp" method="POST">
             Bem Vindo
@@ -67,6 +67,8 @@
             <br>
             <input type="submit" value="Entrar" name="Entrar" />
             <input type="reset" value="Limpar" name="Limpar" />
+            <br>
+            <input type="submit" value="Incluir novo usuário" name="Novo" />
         </form>
         </center>
     </body>
