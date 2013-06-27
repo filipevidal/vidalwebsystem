@@ -1,4 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.Connection" %>
+<%@page import="java.sql.Statement" %>
+<%@page import="java.sql.ResultSet" %>
+<%@page import="java.sql.DriverManager" %>
+<%@page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,18 +19,46 @@
         if (metodo_form == "POST" && usuario_form != null && senha_form != null)
         {
             tentou_logar = true;
-        
-            if (usuario_form.equals("erlimar") && senha_form.equals("123456")) {
+            
+            // Conectando ao banco de dados
+            try {
                 
-                // Salvamos dados na sessão, informando que o usuário logou
-                session.setAttribute("usuario_logado", usuario_form);
-                session.setAttribute("data_hora_login", System.nanoTime());
-                session.setAttribute("login_ativo", true);
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/LingProgIII", "administrador", "admin");
                 
-                // Redirecionamos o usuário para a página de Início
-                response.sendRedirect("Inicio.jsp");
-            }else{
-                mensagem_erro = "Usuário/Senha inválidos!";
+                Statement stm = conn.createStatement();
+                
+                // Tratar SQL INJECTION antes disso
+                ResultSet rs = stm.executeQuery("select USUARIO from APP.USUARIO where USUARIO = '" + usuario_form + "' and SENHA = '" + senha_form + "'");
+                
+                Integer usuarios_encontrados = 0;
+                
+                while (rs.next())
+                    usuarios_encontrados++;
+                
+                // Verificando USUARIO/SENHA
+                if (usuarios_encontrados == 1) {
+
+                     // Salvamos dados na sessão, informando que o usuário logou
+                     session.setAttribute("usuario_logado", usuario_form);
+                     session.setAttribute("data_hora_login", System.nanoTime());
+                     session.setAttribute("login_ativo", true);
+
+                     // Redirecionamos o usuário para a página de Início
+                     response.sendRedirect("Inicio.jsp");
+                 }else{
+                     mensagem_erro = "Usuário/Senha inválidos!";
+                 }
+
+            }
+            catch (ClassNotFoundException e) {
+                mensagem_erro = "Não foi possível carregar os drivers de banco: " + e.getMessage();
+            }
+            catch (SQLException e) {
+                mensagem_erro = "Erro de base de dados: " + e.getMessage();
+            }
+            catch (Exception e) {
+                mensagem_erro = "Houve um erro inesperado: " + e.getMessage();
             }
         }
         %>

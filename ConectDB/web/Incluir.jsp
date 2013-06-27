@@ -1,4 +1,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+// Por padrão o usuário não está logado
+Boolean esta_logado = false;
+
+// Verificando se existe informação de login na sessão
+String session_usuario_logado = (String) session.getAttribute("usuario_logado");
+Long session_data_hora_login = (Long) session.getAttribute("data_hora_login");
+Boolean session_login_ativo = (Boolean) session.getAttribute("login_ativo");
+
+if (session_usuario_logado != null && session_data_hora_login != null && session_login_ativo == true)
+    esta_logado = true;
+
+if (!esta_logado)
+    response.sendRedirect("Inicio.jsp");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +24,9 @@
         </style>
     </head>
     <body>
-        <form name="Incluir_Contato" action="Incluir_Contato" method="POST">
+        <a href="Inicio.jsp">Voltar ao Início</a>
+        <hr>
+        <form name="Incluir_Contato" action="Incluir.jsp" method="POST">
             <h1>Por Favor, informe os dados do contato</h1>
             <br><br>
             Nome do Contato - <input type="text" name="Nome" value="" size="50" />
