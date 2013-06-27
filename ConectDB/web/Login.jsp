@@ -7,9 +7,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <style type="text/css">
+            <!-- body {background-image: url("fundo_login.png"); }  
+        </style>
     </head>
     <body>
-        <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
         <center>
         Bem Vindo
         <br>    
@@ -21,6 +24,8 @@
         <br>
         <input type="submit" value="Entrar" name="Entrar" />
         <input type="reset" value="Limpar" name="Limpar" />
+        <br>
+        <input type="submit" value="Incluir novo usuário" name="Novo" />
         </center>
     </body>
 </html>

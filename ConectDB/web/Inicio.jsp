@@ -8,12 +8,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio</title>
         <style type="text/css">
-            <!-- body {background-color: #66ff99; }
-            h2{background-color: #33ff00; }
-            h3{background-color: #33cc00; }
-            h4{background-color: #339900; }
-            h5{background-color: #006600; }
-            p{background-color: #003333; }    
+            <!-- body {background-image: url("fundo.png"); }
+                
                 
         </style>
     </head>
@@ -24,14 +20,14 @@
        Selecione o que deseja fazer:
        <br>
        <select name="Operação">
-           <option>Visualizar Agenda</option>
+           <option>Visualizar Contatos</option>
            <option>Incluir Contato</option>
            <option>Editar Contato</option>
            <option>Excluir Contato</option>
        </select>
        <br>
-       <input type="submit" value="Ir" name="Executar" />
-       <input type="reset" value="Limpar" name="Limpar" />
+       <input type="submit" value="Executar" name="Executar" />
+       
         </center>
     </body>
 </html>
