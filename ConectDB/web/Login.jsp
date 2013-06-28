@@ -29,6 +29,8 @@
                 Statement stm = conn.createStatement();
                 
                 // Tratar SQL INJECTION antes disso
+                usuario_form = java.net.URLEncoder.encode(usuario_form, "utf-8");
+                senha_form = java.net.URLEncoder.encode(senha_form, "utf-8");
                 ResultSet rs = stm.executeQuery("select USUARIO from APP.USUARIO where USUARIO = '" + usuario_form + "' and SENHA = '" + senha_form + "'");
                 
                 Integer usuarios_encontrados = 0;
@@ -101,8 +103,6 @@
             <br>
             <input type="submit" value="Entrar" name="Entrar" />
             <input type="reset" value="Limpar" name="Limpar" />
-            <br>
-            <input type="submit" value="Incluir novo usuário" name="Novo" />
         </form>
         </center>
     </body>

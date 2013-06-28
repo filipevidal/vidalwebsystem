@@ -1,4 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.Connection" %>
+<%@page import="java.sql.Statement" %>
+<%@page import="java.sql.ResultSet" %>
+<%@page import="java.sql.DriverManager" %>
+<%@page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,24 +19,20 @@
         
         if (session_usuario_logado != null && session_data_hora_login != null && session_login_ativo == true)
             esta_logado = true;
-        
-        // Por padrão nenhum item de menu foi solicitado
-        Boolean solicitou_menu = false;
-        String opcao_menu = null;
-        
-        // Verificando se algum item de menu foi selecionado
-        if (request.getMethod() == "POST" && request.getParameter("Operacao") != null) {
-            solicitou_menu = true;
-            opcao_menu = request.getParameter("Operacao");
-        }
-        
-        
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio</title>
         <style type="text/css">
             body {background-image: url("fundo.png"); }
         </style>
+        <script type="text/javascript">
+            
+            function ConfirmaExcluir(nome) {
+                if (confirm("Tem certeza de que deseja excluir esse registro?")) {
+                    window.location = "Excluir.jsp?NomeParaExcluir=" + nome;
+                }
+            }
+        </script>
     </head>
     <body>
         <br><br>
@@ -59,46 +60,57 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                    String mensagem_erro = null;
                     
+                    try {
+                        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                        Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/Trabalho", "administrador", "administrador");
+
+                        Statement stm = conn.createStatement();
+
+                        ResultSet rs = stm.executeQuery("select * from APP.AGENDA order by NOME");
+
+                        while (rs.next()) {
+                            String nome = rs.getString("NOME");
+                            String endereco = rs.getString("ENDERECO");
+                            String telefone = rs.getString("TELEFONE");
+                            String email = rs.getString("E_MAIL");
+                            String nome_url = java.net.URLEncoder.encode(nome,"utf-8");
+                    %>
                     <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td><a href="Editar.jsp">Editar</a></td>
-                        <td><a href="Logout.jsp">Excluir</a></td>
-                        
+                        <td><%=nome%></td>
+                        <td><%=endereco%></td>
+                        <td><%=telefone%></td>
+                        <td><%=email%></td>
+                        <td><a href="Editar.jsp?NomeParaEditar=<%=nome_url%>">Editar</a></td>
+                        <td><a href="javascript:ConfirmaExcluir('<%=nome_url%>');">Excluir</a></td>
                     </tr>
+                    <%
+                        }
+                        // Fim dos registros
+                    }
+                    catch(ClassNotFoundException e) {
+                        mensagem_erro = "Erro de driver: " + e.getMessage();
+                    }
+                    catch(SQLException e) {
+                        mensagem_erro = "Erro de banco de dados: " + e.getMessage();
+                    }
+                    catch(Exception e) {
+                        mensagem_erro = "Erro desconhecido: " + e.getMessage();
+                    }
+                    
+                    if (mensagem_erro != null) {
+                    %>
                     <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td><a href="Editar.jsp">Editar</a></td>
-                        <td><a href="Logout.jsp">Excluir</a></td>
-                        
+                        <td colspan="6" style="background-color:red; color:black; font-weight: bold;text-align: center;font-size:14pt;"><%=mensagem_erro%></td>
                     </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td><a href="Editar.jsp">Editar</a></td>
-                        <td><a href="Excluir.jsp">Excluir</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td><a href="Editar.jsp">Editar</a></td>
-                        <td><a href="Logout.jsp">Excluir</a></td>
-                        
-                    </tr>
+                    <%
+                    }
+                    %>
                 </tbody>
             </table>
-            <center><input type="submit" value="Incluir Novo Contato" name="Incluir" /></center>
+                <center><a href='Incluir.jsp'>Incluir Novo contato</a></center>
             <br>
             
         </form>
